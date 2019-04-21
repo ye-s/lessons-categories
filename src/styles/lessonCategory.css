@@ -1,0 +1,21 @@
+.lessonCategoryBlock {
+  max-width: 200px;
+  height: 30px;
+  background: lightgray;
+  margin-bottom: 1px;
+}
+
+.lessonCategory {
+  max-width: 200px;
+  height: 100%;
+}
+.lessonCategoriesContainer {
+  width: 200px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.lessonBlock {
+  height: 30px;
+  margin-bottom: 1px;
+}

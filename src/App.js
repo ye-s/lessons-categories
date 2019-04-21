@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import LessonCategoriesContainer from './modules/categories/containers/LessonsCategoriesContainer';
+import { LESSONS as lessons } from './lessons.constants';
 import logo from './logo.svg';
 import './App.css';
+import './styles/lessonCategory.css';
 
 class App extends Component {
+  state = {
+    lessons: lessons
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -19,7 +25,10 @@ class App extends Component {
           >
             Learn React
           </a>
-        </header>
+        </header> */}
+        <div>
+          <LessonCategoriesContainer lessons={lessons}/>
+        </div>
       </div>
     );
   }

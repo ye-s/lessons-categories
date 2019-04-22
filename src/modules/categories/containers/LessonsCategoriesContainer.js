@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LessonCategory from '../components/LessonCategory';
+import Lesson from '../components/Lesson';
 
 class LessonCategoriesContainer extends Component {
   render() {
@@ -13,12 +14,20 @@ class LessonCategoriesContainer extends Component {
             children,
             id
           } = lesson;
-          return (<LessonCategory 
-                    key={id}
-                    name={name}
-                    isCategory={isCategory}
-                    children={children}
-                  />)
+          return isCategory
+                 ? (<LessonCategory 
+                      key={id}
+                      name={name}
+                      isCategory={isCategory}
+                      innerLessons={children}
+                      depth={1}
+                    />)
+                 : (<Lesson 
+                      key={id}
+                      name={name}
+                      depth={1}
+                    />)
+
         })
         }
       </div>

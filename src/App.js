@@ -5,9 +5,10 @@ import logo from './logo.svg';
 import './App.css';
 import './styles/lessonCategory.css';
 
+const initialLessons = lessons;
 class App extends Component {
   state = {
-    lessons: lessons
+    lessons: initialLessons
   }
   render() {
     return (
@@ -27,7 +28,7 @@ class App extends Component {
           </a>
         </header> */}
         <div>
-          <LessonCategoriesContainer lessons={lessons}/>
+          <LessonCategoriesContainer lessons={this.state.lessons}/>
         </div>
       </div>
     );

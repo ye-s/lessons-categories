@@ -1,40 +1,97 @@
 import React, { Component } from 'react';
 import Lesson from './Lesson';
+import PropTypes from 'prop-types';
 
 class LessonCategory extends Component {
 
+  static propTypes = {
+    name: PropTypes.string,
+    innerLessons: PropTypes.array,
+    isCategory: PropTypes.bool,
+    depth: PropTypes.number,
+  }
+
+  state = {
+    isExpanded: false,
+    isChildExpanded: false,
+    childHeight: 0
+  }
+
+  expandCategory = (e) => {
+    this.setState((prevState, props) => ({isExpanded: !this.state.isExpanded}))
+  }
+
+  adjustParentCategoryHeight = () => {
+    this.setState((prevState, props) => ({isChildExpanded: !this.state.isChildExpanded}))
+    // TODO return object with parameters (height, etc)
+  }
 
   renderChildren = () => {
-    const { children } = this.props
+    const { 
+      innerLessons,
+      depth 
+    } = this.props
 
-    children.map((child) => {
+    return innerLessons.map((lesson) => {
       const { 
         name,
         isCategory,
-        children,
+        children: nestedLessons,
         id
-      } = child;
+      } = lesson;
+      const incrementedDepth = depth + 1;
 
-      return (<LessonCategory 
+      return isCategory
+            ? (<LessonCategory 
                 key={id}
                 name={name}
                 isCategory={isCategory}
-                children={children}
+                innerLessons={nestedLessons}
+                depth={incrementedDepth}
               />)
-    })
+            : (<Lesson
+                key={id}
+                name={name}
+                depth={incrementedDepth}
+              />)
+    });
   };
 
   render() {
-    const { name, isCategory, children } = this.props;
+    const { 
+      name,
+      isCategory,
+      innerLessons,
+      depth 
+    } = this.props;
+    let quantityModifier = 1;
+    let expandedHeight = 0;
+    let cssPositionModifier = {};
+   
+    if (innerLessons) {
+      quantityModifier = innerLessons.length + 1;
+      expandedHeight = 35 * quantityModifier;
+    }
+
+    cssPositionModifier = { 
+      height: `${ this.state.isExpanded ? expandedHeight : 35 }px`,
+      marginLeft: `${ -15 + depth * 15}px`,
+    };
+    
     return (
-      <div className="lessonCategoryBlock">
-        <div className="lessonCategory">
+      <div className="lessonCategoryBlock"
+           style={cssPositionModifier}>
+        <div className="lessonCategory"
+             onClick={this.expandCategory}>
           <p>{name}</p>
         </div>
         { 
-          !isCategory && !children.length
-          ? <Lesson name={name} />
-          : this.renderChildren()
+          isCategory && innerLessons && this.state.isExpanded
+          && this.renderChildren()
+          // : <Lesson
+          //     name={name}
+          //     depth={depth}
+          //   />
         }
       </div>
     );

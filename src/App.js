@@ -1,34 +1,49 @@
 import React, { Component } from 'react';
 import LessonCategoriesContainer from './modules/categories/containers/LessonsCategoriesContainer';
+import LessonContent from './modules/categories/components/LessonContent';
 import { LESSONS as lessons } from './lessons.constants';
-import logo from './logo.svg';
 import './App.css';
 import './styles/lessonCategory.css';
 
 const initialLessons = lessons;
+
 class App extends Component {
   state = {
-    lessons: initialLessons
+    lessons: initialLessons,
+    content: '',
+    chosenLesson: '',
   }
+
+  showLesson = (lessonName) => {
+    let output = '';
+    for(let i = 0; i < 1000; i++) {
+      output += `${lessonName} `;
+    }
+    this.setState((prevState, props) => (
+      { 
+        content: output,
+        chosenLesson: lessonName
+      }
+    ));
+  }
+
   render() {
+    const { 
+      content,
+      chosenLesson
+    } = this.state;
+
     return (
       <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
-        <div>
-          <LessonCategoriesContainer lessons={this.state.lessons}/>
+        <div className="lessonsModule">
+          <LessonCategoriesContainer 
+            showLesson={this.showLesson}
+            lessons={this.state.lessons}
+          />
+          <LessonContent 
+            content={content}
+            chosenLesson={chosenLesson}
+          />
         </div>
       </div>
     );

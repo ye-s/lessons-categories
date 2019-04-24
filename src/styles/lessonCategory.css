@@ -6,6 +6,31 @@ body p {
   margin: 0;
 }
 
+.lessonsModule {
+  display: flex;
+   /* flex-direction: column; */
+  overflow: hidden;
+  flex: 1;
+  /* overflow: auto; */
+}
+
+.lessonContent {
+  width: calc(100% - 320px);
+  padding: 10px;
+  overflow: auto;
+  flex: 2;
+}
+
+.lessonCategoriesContainer {
+  width: 300px;
+  height: 100%;
+  margin-right: 20px;
+  overflow: auto;
+  flex: 1;
+  text-align: left;
+  background: #fff;
+}
+
 .lessonCategoryBlock {
   max-width: 300px;
   min-height: 34px;
@@ -19,20 +44,13 @@ body p {
   margin-bottom: 1px;
   background: #f0f0f0;
   max-width: 300px;
-  min-height: 34px;
+  min-height: 30px;
   padding: 2px 0;
-}
-
-.lessonCategoriesContainer {
-  width: 300px;
-  height: 100%;
-  overflow: scroll;
-  text-align: left;
 }
 
 .lessonBlock {
   margin-bottom: 1px;
-  height: 34px;
+  min-height: 30px;
   background: #f8f8f8;
   padding: 2px 0;
 }
@@ -42,5 +60,5 @@ body p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  line-height: 30px;
+  line-height: 28px;
 }

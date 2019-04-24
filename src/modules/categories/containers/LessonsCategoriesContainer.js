@@ -3,8 +3,15 @@ import LessonCategory from '../components/LessonCategory';
 import Lesson from '../components/Lesson';
 
 class LessonCategoriesContainer extends Component {
+
+  showLesson = (name) => {
+    const { showLesson } = this.props;
+    
+    showLesson(name);
+  }
+
   render() {
-    const { lessons } = this.props;
+    const { lessons, showLesson } = this.props;
     return (
       <div className="lessonCategoriesContainer">
         { lessons.map((lesson) => {
@@ -21,13 +28,14 @@ class LessonCategoriesContainer extends Component {
                       isCategory={isCategory}
                       innerLessons={children}
                       depth={1}
+                      showLesson={this.showLesson}
                     />)
                  : (<Lesson 
                       key={id}
                       name={name}
                       depth={1}
+                      showLesson={this.showLesson}
                     />)
-
         })
         }
       </div>

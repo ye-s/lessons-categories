@@ -14,22 +14,72 @@ class LessonCategory extends Component {
   state = {
     isExpanded: false,
     isChildExpanded: false,
-    childHeight: 0
-  }
+    childNumber: 0,
+    initialChilds: this.props.innerLessons.length,
+  };
 
   expandCategory = (e) => {
-    this.setState((prevState, props) => ({isExpanded: !this.state.isExpanded}))
+    const { 
+      innerLessons,
+      depth
+    } = this.props;
+    const { 
+      isExpanded,
+    } = this.state;
+
+    const updatedChildNumber = !isExpanded ? innerLessons.length : -innerLessons.length;
+
+    this.setState((prevState, props) => (
+        {
+          isExpanded: !prevState.isExpanded,
+          childNumber: depth > 1 ? prevState.childNumber : updatedChildNumber,
+        }
+      )
+    );
+
+    if (depth > 1) {
+      this.updateChildQuantityModifier(updatedChildNumber);
+    }
   }
 
-  adjustParentCategoryHeight = () => {
-    this.setState((prevState, props) => ({isChildExpanded: !this.state.isChildExpanded}))
-    // TODO return object with parameters (height, etc)
+  showLesson = (name) => {
+    const { showLesson } = this.props;
+    
+    showLesson(name);
+  }
+
+  updateChildQuantityModifier = (modifier) => {
+    const { 
+      onExpand,
+      depth,
+    } = this.props;
+    const {
+      childNumber,
+      isExpanded,
+      isChildExpanded,
+    } = this.state;
+
+    this.setState((prevState, props) => {
+        const updatedChildNumber = prevState.childNumber + modifier;
+        return {
+          isChildExpanded: depth > 1 && updatedChildNumber > 0
+                          ? prevState.isChildExpanded 
+                          : prevState.isChildExpanded,
+          childNumber: prevState.childNumber + modifier,
+        }
+      }
+    );
+
+    if (onExpand && modifier) {
+      onExpand(modifier);
+    } 
   }
 
   renderChildren = () => {
     const { 
       innerLessons,
-      depth 
+      depth ,
+      showLesson,
     } = this.props
 
     return innerLessons.map((lesson) => {
@@ -48,16 +98,24 @@ class LessonCategory extends Component {
                 isCategory={isCategory}
                 innerLessons={nestedLessons}
                 depth={incrementedDepth}
+                onExpand={this.updateChildQuantityModifier}
+                showLesson={this.showLesson}
               />)
             : (<Lesson
                 key={id}
                 name={name}
                 depth={incrementedDepth}
+                showLesson={this.showLesson}
               />)
     });
   };
 
   render() {
+    const { 
+      childNumber,
+      isChildExpanded,
+      isExpanded,
+    } = this.state;
     const { 
       name,
       isCategory,
@@ -69,7 +127,7 @@ class LessonCategory extends Component {
     let cssPositionModifier = {};
    
     if (innerLessons) {
-      quantityModifier = innerLessons.length + 1;
+      quantityModifier = quantityModifier + childNumber;
       expandedHeight = 35 * quantityModifier;
     }
 
@@ -77,6 +135,8 @@ class LessonCategory extends Component {
       height: `${ this.state.isExpanded ? expandedHeight : 35 }px`,
       marginLeft: `${ -15 + depth * 15}px`,
     };
+
+    const showChildren = isCategory && innerLessons && isExpanded;
     
     return (
       <div className="lessonCategoryBlock"
@@ -86,12 +146,7 @@ class LessonCategory extends Component {
           <p>{name}</p>
         </div>
         { 
-          isCategory && innerLessons && this.state.isExpanded
-          && this.renderChildren()
-          // : <Lesson
-          //     name={name}
-          //     depth={depth}
-          //   />
+          showChildren && this.renderChildren()
         }
       </div>
     );

@@ -1,68 +1,17 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Elopage test task
 
-## Available Scripts
+- inside file `lessons.constants.js` we have `LESSONS`, it's object from which we should build sidebar(lessons tree)
+- according to content lessons tree should be multilevel
+- each tree element should be clickable:
+-- when you clicking on category(`isCategory=true`) - category should show childrens
+-- when click on lesson(`isCategory=false`) - we should display name and content of lesson on page(under content you should multiply name 1000 times to keep page NOT empty)
 
-In the project directory, you can run:
+- sidebar and content should have 2 independent scrolls, when content huge and you scrolling it - sidebar should stay visible, when sidebar huge and you scrolling it - content should stay visible
 
-### `npm start`
+- inside file `lessons.utils.js` we have function `checkIfPrevQuizzesEnabled`, which detecting if ANY prev lesson have enabled quiz(`quiz_enabled=true`), if YES - we should mark menu item as `locked`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+You can use any modules, frameworks, instruments which you likes, you can use React/Redux/Mobx/SCSS... or just plain JavaScript/CSS.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+As a result we should have page similar to this:
+![Test task screen example](https://elopay-me-prod.s3.amazonaws.com/media_files/attachments/000/001/267/original/b345842159.jpg?1555152042)

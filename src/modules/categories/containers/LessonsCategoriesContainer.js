@@ -32,6 +32,7 @@ class LessonCategoriesContainer extends Component {
                     />)
                  : (<Lesson 
                       key={id}
+                      id={id}
                       name={name}
                       depth={1}
                       showLesson={this.showLesson}

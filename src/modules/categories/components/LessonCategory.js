@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Lesson from './Lesson';
 import PropTypes from 'prop-types';
+import { checkIfPrevQuizzesEnabled } from '../../../utils/lessons.utils';
 
 class LessonCategory extends Component {
 
@@ -53,11 +54,6 @@ class LessonCategory extends Component {
       onExpand,
       depth,
     } = this.props;
-    const {
-      childNumber,
-      isExpanded,
-      isChildExpanded,
-    } = this.state;
 
     this.setState((prevState, props) => {
         const updatedChildNumber = prevState.childNumber + modifier;
@@ -90,6 +86,11 @@ class LessonCategory extends Component {
         id
       } = lesson;
       const incrementedDepth = depth + 1;
+      let isLessonLocked = false;
+      
+      if (!isCategory) {
+        isLessonLocked = checkIfPrevQuizzesEnabled(innerLessons, id);
+      }
 
       return isCategory
             ? (<LessonCategory 
@@ -105,6 +106,7 @@ class LessonCategory extends Component {
                 key={id}
                 name={name}
                 depth={incrementedDepth}
+                isLocked={isLessonLocked}
                 showLesson={this.showLesson}
               />)
     });
@@ -113,7 +115,6 @@ class LessonCategory extends Component {
   render() {
     const { 
       childNumber,
-      isChildExpanded,
       isExpanded,
     } = this.state;
     const { 
@@ -143,6 +144,7 @@ class LessonCategory extends Component {
            style={cssPositionModifier}>
         <div className="lessonCategory"
              onClick={this.expandCategory}>
+          <div className="lessonCategory--arrow" />
           <p>{name}</p>
         </div>
         { 

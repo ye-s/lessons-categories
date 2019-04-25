@@ -1,32 +1,27 @@
-body {
-  box-sizing: border-box;
-}
-
 body p {
   margin: 0;
 }
 
 .lessonsModule {
-  display: flex;
-   /* flex-direction: column; */
-  overflow: hidden;
-  flex: 1;
-  /* overflow: auto; */
+  height: 100%;
 }
 
 .lessonContent {
-  width: calc(100% - 320px);
+  height: 100%;
+  width: calc(100% - 330px);
   padding: 10px;
-  overflow: auto;
-  flex: 2;
+  overflow-y: auto;
+  float: left;
+  box-sizing: border-box;
 }
 
 .lessonCategoriesContainer {
   width: 300px;
   height: 100%;
-  margin-right: 20px;
-  overflow: auto;
-  flex: 1;
+  margin-right: 10px;
+  overflow-y: auto;
+  float: left;
+  box-sizing: border-box;
   text-align: left;
   background: #fff;
 }
@@ -40,12 +35,23 @@ body p {
   flex-direction: column;
 }
 
+.lessonCategory--arrow {
+  margin-top: 12px;
+  margin-left: 15px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid rgb(0, 149, 255);
+}
+
 .lessonCategory {
   margin-bottom: 1px;
   background: #f0f0f0;
   max-width: 300px;
   min-height: 30px;
   padding: 2px 0;
+  display: flex;
 }
 
 .lessonBlock {
@@ -53,10 +59,20 @@ body p {
   min-height: 30px;
   background: #f8f8f8;
   padding: 2px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lessonBlock .lessonLocked {
+  color: brown;
+  font-weight: bold;
+  padding: 0 25px 0 10px;
+  line-height: 28px;
 }
 
 .lessonCategory p, .lessonBlock p {
   padding: 0 10px 0 10px;
+  max-width: 190px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
